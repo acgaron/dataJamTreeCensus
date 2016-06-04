@@ -69,3 +69,10 @@ prop.table(alive_tree_cd, 1)
 
 steward_tree_cd <- table(BX_MN$cb_num, BX_MN$steward)
 prop.table(steward_tree_cd, 1)
+
+indicators <- merge(indicators, sq_mile, by.x = "cd", by.y = "BoroCD")
+
+indicators$treesSqMile <- indicators$tree_count/indicators$Shape_Area
+
+ggplot(bx, aes(bx$treesSqMile,bx$median_household_income_puma)) + geom_point() + geom_text(aes(label=bx$cd))
+
