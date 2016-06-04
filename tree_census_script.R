@@ -3,6 +3,9 @@
 #importing in dataset
 
 library("plyr")
+library("ggplot2")
+options(digits=2)
+
 
 `2015_Street_Tree_Census_._Tree_Data` <- read.csv("~/Documents/DataJam/2015_Street_Tree_Census_-_Tree_Data.csv")
 
@@ -36,3 +39,33 @@ indicators <- merge(tree_census_indicators, non_census_indicators, by.x = "cd", 
 indicators <- merge(indicators, number_trees_bx_mn, by.x = "cd", by.y = "cb_num")
 
 write.csv(indicators, file = "fullSetIndicators.csv")
+
+## analyze correlation in each boro
+
+mn <- subset(indicators, indicators$boro.x == 1)
+
+bx <- subset(indicators, indicators$boro.x == 2)
+
+
+cor(bx$tree_count, bx$median_household_income_puma)
+
+cor(mn$tree_count, mn$median_household_income_puma)
+
+ggplot(bx, aes(bx$tree_count,bx$median_household_income_puma)) + geom_point() + geom_text(aes(label=bx$cd))
+
+
+#health by CD
+health_tree_cd <- table(BX_MN$cb_num, BX_MN$health)
+prop.table(health_tree_cd, 1)
+
+
+#alive dead by cd
+
+alive_tree_cd <- table(BX_MN$cb_num, BX_MN$status)
+prop.table(alive_tree_cd, 1)
+
+
+#stewards by cd
+
+steward_tree_cd <- table(BX_MN$cb_num, BX_MN$steward)
+prop.table(steward_tree_cd, 1)
