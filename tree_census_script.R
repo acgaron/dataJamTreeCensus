@@ -76,3 +76,15 @@ indicators$treesSqMile <- indicators$tree_count/indicators$Shape_Area
 
 ggplot(bx, aes(bx$treesSqMile,bx$median_household_income_puma)) + geom_point() + geom_text(aes(label=bx$cd))
 
+indicators_for_maps <- indicators[,c(
+	"cd", 
+	"boro.x", 
+	"tree_count", 
+	"any_exercise_cd", 
+	"median_household_income_puma", 
+	"air_qual_cd", 
+	"at_least_hs_puma", 
+	"voted_last_three_years_cd")]
+
+indicators_for_maps <- indicators[indicators_for_maps]
+
